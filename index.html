@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resident Profile</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="notification model4 level1">
+        <div class="close-notification tooltips" data-toggle="tooltip" data-placement="left" title="Hide notification">X</div>
+        <div class="point-intruder"></div>
+        <div class="notification-radar"></div>
+    </div>
+    <div id="modalPictures" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Picture" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <center class="modal-image">
+                    <img src="#" class="img-responsive patient-img" />
+                </center>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <header>
+            <span class="menu-anchor"></span>
+            <h1><a href="#">Resident Profile</a></h1>
+        </header>
+
+        <menu>
+            <div class="section-menu">Privacy controls</div>
+            <ul>
+                <li><a href="#" onclick="javascript:changeControl(0);">No control</a>
+                </li>
+                <li><a href="#" onclick="javascript:changeControl(1)">Selective hiding</a>
+                </li>
+                <li><a href="#" onclick="javascript:changeControl(2);">Gray scale</a>
+                </li>
+                <li><a href="#" onclick="javascript:changeControl(3);">Brightness</a>
+                </li>
+            </ul>
+            <div class="section-menu">Notifications</div>
+            <ul>
+                <li><a href="#" onclick="javascript:$('.notification').stop().fadeOut(500, function(){changeNotification(0);});">No notification</a>
+                </li>
+                <li><a href="#" onclick="javascript:changeNotification(1);">Simple notification</a>
+                </li>
+                <li><a href="#" onclick="javascript:changeNotification(2);">Colorful notification</a>
+                </li>
+                <li><a href="#" onclick="javascript:changeNotification(3);">Level notification</a>
+                </li>
+                <li><a href="#" onclick="javascript:changeNotification(4);">Radar notification</a>
+                </li>
+            </ul>
+        </menu>
+
+        <section id="main" class="main">
+            <div class="row patient-summary">
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    <h1 class="patient-name">Bob Manilyn</h1>
+                    <h1 class="patient-name-acronym">B. M.</h1>
+                    <h2>Profile</h2>
+                    <p class="more">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a elit porttitor, hendrerit sapien vel, feugiat turpis. Donec fringilla tellus nec odio porta, non rutrum nisl congue. Sed nisl lacus, sodales nec lobortis quis, faucibus eget velit. Nam et molestie nibh, at pulvinar nunc. Integer molestie viverra eros non rutrum. Phasellus quis lectus purus.
+                    </p>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3 center">
+                    <center>
+                        <img class="img-circle img-responsive patient-img" width="200" height="200" alt="Bob Manilyn" src="images/patient.png">
+                    </center>
+                </div>
+            </div>
+            <div class="row patient-evolution">
+                <div class="col-xs-12 col-md-6">
+                    <h2>Treatment</h2>
+                    <ul class="patient-img-list list-inline">
+                        <li>
+                            <a href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
+                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
+                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
+                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
+                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
+                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
+                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient.png">
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <h2 class="patient-chart">Evolution</h2> 
+                    <div id="patient-chart"></div>
+                </div>
+                <div>
+                    <h2>Goals</h2> 
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a elit porttitor, hendrerit sapien vel, feugiat turpis. Donec fringilla tellus nec odio porta, non rutrum nisl congue. Sed nisl lacus, sodales nec lobortis quis, faucibus eget velit. Nam et molestie nibh, at pulvinar nunc. Integer molestie viverra eros non rutrum. Phasellus quis lectus purus.</p>
+                </div>
+            </div>
+        </section>
+        <footer>
+            Experiment
+        </footer>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/dragdrop.pep.js"></script>
+    <script src="js/highcharts.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

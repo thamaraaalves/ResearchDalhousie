@@ -1,0 +1,364 @@
+html,
+body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+body {
+    font: 100% arial, verdana, tahoma, sans-serif;
+    color: #333;
+    background-color: #FFF;
+}
+header {
+    margin: 0 20px;
+    padding: 15px 5px 5px 5px;
+    overflow: hidden;
+    border-bottom: solid 1px #666;
+}
+header h1 {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: Left;
+    width: 80%;
+    font-size: 2em;
+    margin-top: 8px;
+    margin-left: 15px;
+}
+h1 a {
+    color: #00b4f0;
+    text-decoration: none;
+}
+header input {
+    float: right;
+    padding: 10px;
+    width: 200px;
+    border: none;
+}
+.main {
+    padding: 0px 30px;
+}
+.main p {
+    font-size: 1.5em;
+    line-height: 1.2em;
+    margin-bottom: 20px;
+}
+footer {
+    padding: 20px;
+    font-size: 1.3em;
+    text-align: center;
+    color: #9a9a9a;
+}
+/*** MENU CSS: Begin ***/
+
+.menu-anchor {
+    width: 40px;
+    height: 32px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    text-indent: -9999px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.menu-anchor:before {
+    content: "";
+    display: block;
+    margin: 7px auto;
+    width: 70%;
+    height: 0.25em;
+    background: #333;
+    box-shadow: 0 .7em 0 0 #333, 0 1.4em 0 0 #333;
+}
+.menu-active .menu-anchor {
+    background: #333;
+}
+.menu-active .menu-anchor:before {
+    background: #fff;
+    box-shadow: 0 .7em 0 0 #fff, 0 1.4em 0 0 #fff;
+}
+menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 220px;
+    height: 100%;
+    padding-top: 10px;
+    padding-left: 0;
+    margin-top: 0;
+    background: #00b4f0;
+    box-shadow: inset -5px 0px 10px 0 rgba(0, 0, 0, .3)
+}
+menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+menu li a {
+    display: block;
+    border-bottom: 1px solid rgba(255, 255, 255, .3);
+    margin: 0 10px;
+    padding: 10px;
+    color: #FFF;
+    font-size: 1.5em;
+    text-decoration: none;
+}
+menu li a:hover {
+    color: #333;
+    background: #69c8eb;
+}
+menu {
+    -webkit-transform: translateX(-220px);
+    -moz-transform: translateX(-220px);
+    -ms-transform: translateX(-220px);
+    transform: translateX(-220px);
+    -webkit-transition: all .25s linear;
+    -moz-transition: all .25s linear;
+    -ms-transition: all .25s linear;
+    transition: all .25s linear;
+}
+header,
+.main {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+    -webkit-transition: all .25s linear;
+    -moz-transition: all .25s linear;
+    -ms-transition: all .25s linear;
+    transition: all .25s linear;
+}
+.menu-active menu {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+}
+.menu-active header,
+.menu-active .main {
+    -webkit-transform: translateX(220px);
+    -moz-transform: translateX(220px);
+    -ms-transform: translateX(220px);
+    transform: translateX(220px);
+}
+.section-menu {
+    color: #FF0;
+    font-size: 2em;
+    padding-left: 10px;
+    padding-top: 15px;
+}
+/*** MENU CSS: End ***/
+
+/*** READ MORE: Begin ***/
+
+.morecontent span {
+    display: none;
+}
+.caret {
+    display: inline-block !important;
+}
+.caret.up {
+    border-top: 0;
+    border-bottom: 4px solid;
+}
+/*** READ MORE: End ***/
+
+.patient-img {
+    background: #8cc63f url('../images/patient-bg.png') no-repeat center center;
+}
+.patient-img-thumbnail {
+    width: 133px;
+    height: 133px;
+}
+.patient-summary {
+    padding-bottom: 20px;
+    border-bottom: 1px #adadad solid;
+}
+.patient-evolution {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px #adadad solid;
+}
+.patient-img-list li {
+    padding: 5px;
+}
+#patient-chart {
+    width: 100%;
+    height: 400px;
+}
+.modal-footer {
+    margin-top: 0px;
+}
+/*** SELECTIVE HIDING: Begin ***/
+
+.selective-hiding .patient-img {
+    content: url('../images/image-pvt.png');
+}
+.selective-hiding .modal-image {
+    background: #e5e5e5;
+}
+.selective-hiding #patient-chart .highcharts-container {
+    display: none;
+}
+.selective-hiding #patient-chart:before {
+    background: #e5e5e5 url('../images/chart-pvt.png') no-repeat center center;
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 400px;
+}
+.selective-hiding .img-thumbnail {
+    content: url('../images/image-pvt.png');
+}
+.patient-name-acronym,
+.selective-hiding .patient-name {
+    display: none;
+}
+.selective-hiding .patient-name-acronym {
+    display: block;
+}
+/*** SELECTIVE HIDING: End ***/
+
+/*** PRIVACY CONTROLS: Begin ***/
+
+.gray-scale {
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0\'/></filter></svg>#grayscale");
+    -webkit-filter: grayscale(1);
+}
+.brightness {
+    -webkit-filter: brightness(0.5);
+    filter: brightness(0.5);
+    background-color: #fff;
+}
+.brightness-modal {
+    -webkit-filter: brightness(0.5);
+    filter: brightness(0.5);
+}
+/*** PRIVACY CONTROLS: End ***/
+
+/*** NOTIFICATIONS: Begin ***/
+
+.notification {
+    width: 150px;
+    height: 150px;
+    display: block;
+    position: fixed !important;
+    z-index: 9000;
+    top: 20px;
+    right: 20px;
+    border-radius: 150px;
+    box-shadow: rgba(0, 0, 0, 0.31) 0px 5px 9px;
+    background-size: contain !important;
+    -webkit-filter: none;
+    filter: none;
+    -webkit-transition: background .25s linear, opacity .15s linear;
+    -moz-transition: background .25s linear, opacity .15s linear;
+    -ms-transition: background .25s linear, opacity .15s linear;
+    transition: background .25s linear, opacity .15s linear;
+}
+.pep-start {
+    opacity: 0.7;
+}
+.notification .close-notification {
+    width: 35px;
+    height: 35px;
+    border-radius: 35px;
+    background: #1d1d1d;
+    float: right;
+    color: #FFF;
+    text-align: center;
+    padding: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.31) 0px 5px 9px;
+}
+.notification .close-notification:hover {
+    background: #961111;
+}
+.notification.model0 {
+    opacity: 0;
+}
+.notification.model1.level1 {
+    background: url('../images/notification1-level1.png') no-repeat center center;
+}
+.notification.model2.level1 {
+    background: url('../images/notification2-level2.png') no-repeat center center;
+}
+.notification.model2.level2 {
+    background: url('../images/notification2-level3.png') no-repeat center center;
+}
+.notification.model2.level3 {
+    background: url('../images/notification2-level4.png') no-repeat center center;
+}
+.notification.model3.level1 {
+    background: url('../images/notification3-level1.png') no-repeat center center;
+}
+.notification.model3.level2 {
+    background: url('../images/notification3-level2.png') no-repeat center center;
+}
+.notification.model3.level3 {
+    background: url('../images/notification3-level3.png') no-repeat center center;
+}
+.notification.model4:after {
+    background: url('../images/notification4-bg.png') no-repeat center center;
+    width: 150px;
+    height: 150px;
+    display: block;
+    border-radius: 150px;
+    position: relative;
+    top: -155px;
+    left: 0;
+    content: "";
+    z-index: -10;
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+    -webkit-animation-name: rotate;
+    -webkit-animation-duration: 10s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: rotate;
+    -moz-animation-duration: 10s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    opacity: 0.7;
+}
+@-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-moz-keyframes rotate {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+.notification.model4 .notification-radar {
+    background: url('../images/notification4-radargrill.png') no-repeat center center;
+    position: relative;
+    top: -5px;
+    left: 0;
+    background-size: contain;
+    width: 150px;
+    height: 150px;
+    display: block;
+    opacity: 0.9;
+}
+.notification.model4 .point-intruder {
+    background: #960202;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    position: relative;
+    top: 60%;
+    left: 50%;
+}
+/*** NOTIFICATIONS: End ***/
