@@ -43,6 +43,9 @@ header input {
     line-height: 1.2em;
     margin-bottom: 20px;
 }
+#content {
+    min-height: 100%
+}
 footer {
     padding: 20px;
     font-size: 1.3em;
@@ -102,6 +105,7 @@ menu li a {
     color: #FFF;
     font-size: 1.5em;
     text-decoration: none;
+    cursor: pointer;
 }
 menu li a:hover {
     color: #333;
@@ -234,6 +238,11 @@ header,
     -webkit-filter: brightness(0.5);
     filter: brightness(0.5);
 }
+.lantern {
+    -webkit-mask: url(../images/mask1.png) repeat center center;
+    -webkit-mask-size: 12000px 12000px;
+    -webkit-mask-position: 50% 50%;
+}
 /*** PRIVACY CONTROLS: End ***/
 
 /*** NOTIFICATIONS: Begin ***/
@@ -276,10 +285,12 @@ header,
 .notification .close-notification:hover {
     background: #961111;
 }
-.notification.model0 {
+.notification.model0,
+.notification.model1.level1 {
     opacity: 0;
 }
-.notification.model1.level1 {
+.notification.model1.level2,
+.notification.model1.level3 {
     background: url('../images/notification1-level1.png') no-repeat center center;
 }
 .notification.model2.level1 {

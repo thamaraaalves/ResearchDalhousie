@@ -1,0 +1,201 @@
+#gameStats {
+    max-width: 780px;
+    margin: 20px auto 20px;
+    display: block;
+    padding: 10px;
+    overflow: auto;
+    color: #333;
+}
+#gameStats p#timer {
+    width: 200px;
+    float: left;
+    text-align: left;
+    padding: 0 0 0 10px;
+}
+#gameStats p#reset {
+    width: 200px;
+    float: right;
+    text-align: right;
+    padding: 0 10px 0 0;
+}
+#gameStats .gameReset {
+    width: 200px;
+    float: right;
+    text-align: right;
+    padding: 0 10px 0 0;
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+#game {
+    background: #69c8eb;
+    max-width: 800px;
+    height: 515px;
+    margin: 0 auto;
+    display: block;
+    overflow: visible;
+    -moz-box-shadow: 0px 3px 12px #ccc;
+    -webkit-box-shadow: 0px 3px 12px #ccc;
+    box-shadow: 0px 3px 12px #ccc;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    padding: 20px;
+}
+#cards {
+    position: relative;
+    width: 760px;
+    height: 480px;
+    display: none;
+}
+/* Define the 3D perspective view and dimension of each card. */
+
+.card {
+    -webkit-perspective: 600;
+    width: 109px;
+    height: 145px;
+    position: absolute;
+    -moz-transition: all .3s;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    cursor: pointer;
+}
+#gameIntro {
+    background: url(../images/memorymatch/startpage.png) top left no-repeat;
+    padding: 80px 0;
+    text-align: center;
+    height: 480px;
+}
+#gameIntro a.button {
+    background: #2da0cc;
+    border-radius: 5px;
+    display: block;
+    font-size: 1.8em;
+    position: relative;
+    top: 230px;
+    left: 40%;
+    padding: 10px;
+    width: 150px;
+    border: 2px solid #001f64;
+    box-shadow: #001f64 2px 2px;
+    color: #fff;
+    text-decoration: none;
+}
+#gameIntro a.button:hover {
+    background: #123690;
+    color: #fff;
+    text-decoration: none;
+    margin-top: 1px;
+    margin-left: 1px;
+    box-shadow: #001f64 1px 1px;
+}
+#gameComplete {
+    background: url(../images/memorymatch/endpage.png) top left no-repeat;
+    padding: 80px 0;
+    text-align: center;
+    height: 330px;
+}
+#gameComplete a.button {
+    background: #2da0cc;
+    border-radius: 5px;
+    display: block;
+    font-size: 1.8em;
+    position: relative;
+    top: 20px;
+    left: 40%;
+    padding: 10px;
+    width: 160px;
+    border: 2px solid #001f64;
+    box-shadow: #001f64 2px 2px;
+    color: #fff;
+    text-decoration: none;
+}
+#gameComplete a.button:hover {
+    background: #123690;
+    color: #fff;
+    text-decoration: none;
+    margin-top: 1px;
+    margin-left: 1px;
+    box-shadow: #001f64 1px 1px;
+}
+#gameComplete p#top {
+    margin: 200px 0 0;
+    font-size: 20px;
+    color: #333;
+}
+.face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-transition-property: opacity, transform, box-shadow;
+    -webkit-transition-duration: .3s;
+    -webkit-backface-visibility: hidden;
+}
+.front {
+    background: url(../images/memorymatch/deck.jpg) 0 -146px;
+    z-index: 10;
+}
+.back {
+    background: #efefef url(../images/memorymatch/deck.jpg);
+    -webkit-transform: rotate3d(0, 1, 0, -180deg);
+    z-index: 8;
+}
+.card:hover .face,
+.card-flipped .face {
+    -webkit-box-shadow: 0 0 10px #aaa;
+}
+.card-flipped .front {
+    -webkit-transform: rotate3d(0, 1, 0, 180deg);
+    z-index: 8;
+}
+.card-flipped .back {
+    -webkit-transform: rotate3d(0, 1, 0, 0deg);
+    z-index: 10;
+}
+.card-removed {
+    opacity: 0;
+}
+.blueDino {
+    background-position: 0 0;
+}
+.brownDino {
+    background-position: -110px 0;
+}
+.redDino {
+    background-position: -220px 0;
+}
+.greenDino {
+    background-position: -330px 0;
+}
+.purpDino {
+    background-position: -440px 0;
+}
+.burgDino {
+    background-position: -550px 0;
+}
+.orangeDino {
+    background-position: -660px 0;
+}
+.purp2Dino {
+    background-position: -770px 0;
+}
+.pinkDino {
+    background-position: -880px 0;
+}
+#linkBack a.button {
+    background: white;
+    border-radius: 5px;
+    display: block;
+    font-size: 30px;
+    margin: 30px auto 0;
+    padding: 10px;
+    width: 250px;
+    border: 3px solid #006438;
+    color: #006438;
+    text-decoration: none;
+}
+#linkBack a.button:hover {
+    background: #006438;
+    color: #fff;
+    text-decoration: none;
+}

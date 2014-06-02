@@ -1,6 +1,8 @@
 var notificationModel = 0;
 var notificationLevel = 0;
 var privacyControl = 0;
+var intruderPositionX = 0;
+var intruderPositionY = 0;
 /*
 notificationModel =>> 0 - No notification; 1 - Simple notification; 2 - Colorful notification; 3 - Level notification;
 notificationLevel =>> 0 - Far(hidden); 1 - Attention; 2 - Close; 3 - Very close; 
@@ -9,8 +11,8 @@ privacyControl =>> 0 - No control; 1 - Selective hiding; 2 - Gray scale; 3 -Brig
 
 /*** SIDE MENU: Begin ***/
 $(document).ready(function () {
-    $('.menu-anchor').on('click touchstart', function (e) {
-        $('html').toggleClass('menu-active');
+    $(".menu-anchor").on("click touchstart", function (e) {
+        $("html").toggleClass("menu-active");
         e.preventDefault();
     });
 });
@@ -22,7 +24,7 @@ $(document).ready(function () {
     var ellipsestext = "...";
     var moretext = "Read more <span class=\"caret\"> </span>";
     var lesstext = "Read more <span class=\"caret up\"> </span>";
-    $('.more').each(function () {
+    $(".more").each(function () {
         var content = $(this).html();
         if (content.length > showChar) {
             var c = content.substr(0, showChar);
@@ -49,7 +51,7 @@ $(document).ready(function () {
 
 /*** CHART: Begin ***/
 $(function () {
-    $('#patient-chart').highcharts({
+    $("#patient-chart").highcharts({
         title: {
             text: 'Scars treatment',
             x: -20 //center
@@ -97,27 +99,27 @@ $(function () {
 
 /*** NOTIFICATION: Begin ***/
 //Initializing drag and drop
-$('body .notification').pep({
+$("body .notification").pep({
     useCSSTranslation: false,
     constrainTo: 'parent'
 });
 
 //Keep the notification inside the boundaries of the window
-$(window).on('resize', function () {
+$(window).on("resize", function () {
     var win = $(this);
     var notification = $(".notification");
     if (win.height() <= notification.position().top + 150) {
-        notification.css('top', win.height() - 150);
+        notification.css("top", win.height() - 150);
     }
     if (win.width() <= notification.position().left + 150) {
-        notification.css('left', win.width() - 150);
+        notification.css("left", win.width() - 150);
     }
 });
 
 //Closing method for notification
-$('.notification .close-notification').on("click touchstart", function (e) {
+$(".notification .close-notification").on("click touchstart", function (e) {
     e.preventDefault();
-    $('.notification').fadeOut(500);
+    $(".notification").fadeOut(500);
 });
 
 //Initializing tooltips
@@ -128,61 +130,98 @@ $(document).ready(function () {
 //Changing notifications model
 function changeNotification(model) {
     if (model != Number.NaN && model >= 0 || model <= 4) {
-        $('.notification').stop(true, true).removeClass("model0").removeClass("model1").removeClass("model2").removeClass("model3").removeClass("model4");
-        $('.notification').addClass("model" + model);
+        $(".notification").stop(true, true).removeClass("model0").removeClass("model1").removeClass("model2").removeClass("model3").removeClass("model4");
+        $(".notification").addClass("model" + model);
         notificationModel = model;
         if (model != 0) {
-            $('.notification').fadeTo(500, 100).delay(2000).fadeOut(200);
+            $(".notification").fadeTo(500, 100).delay(2000).fadeOut(200);
         }
     }
 }
 //Changing notifications level
 function changeLevel(level) {
     if (level != Number.NaN && level >= 0 || level <= 3) {
-        $('.notification').removeClass("level0").removeClass("level1").removeClass("level2").removeClass("level3");
-        $('.notification').addClass("level" + level);
+        $(".notification").removeClass("level0").removeClass("level1").removeClass("level2").removeClass("level3");
+        $(".notification").addClass("level" + level);
         notificationLevel = level;
     }
 }
-
+//Changing intruder position
+function changeIntruderPosition(x, y) {
+    if (x != Number.NaN && y != Number.NaN) {
+        $(".notification.model4 .point-intruder").css("top", x + "%");
+        $(".notification.model4 .point-intruder").css("left", y + "%");
+        intruderPositionX = x;
+        intruderPositionY = y;
+    }
+}
 /*** NOTIFICATION: End ***/
 
 /*** CONTROL: Begin ***/
 //Changing control
 function changeControl(control) {
     if (control != Number.NaN && control >= 0 || control <= 3) {
-        $('#content').removeClass("no-control").removeClass("selective-hiding").removeClass("gray-scale").removeClass("brightness");
-        $('#modalPictures').removeClass("no-control").removeClass("selective-hiding").removeClass("gray-scale").removeClass("brightness-modal");
+        $("#content").removeClass("no-control").removeClass("selective-hiding").removeClass("gray-scale").removeClass("brightness").removeClass("lantern");
+        $("#modalPictures").removeClass("no-control").removeClass("selective-hiding").removeClass("gray-scale").removeClass("brightness-modal").removeClass("lantern");
         switch (control) {
         case 0:
-            $('#content').addClass("no-control");
-            $('#modalPictures').addClass("no-control");
+            $("#content").addClass("no-control");
+            $("#modalPictures").addClass("no-control");
             break;
         case 1:
-            $('#content').addClass("selective-hiding");
-            $('#modalPictures').addClass("selective-hiding");
+            $("#content").addClass("selective-hiding");
+            $("#modalPictures").addClass("selective-hiding");
             break;
         case 2:
-            $('#content').addClass("gray-scale");
-            $('#modalPictures').addClass("gray-scale");
+            $("#content").addClass("gray-scale");
+            $("#modalPictures").addClass("gray-scale");
             break;
         case 3:
-            $('#content').addClass("brightness");
-            $('#modalPictures').addClass("brightness-modal");
+            $("#content").addClass("brightness");
+            $("#modalPictures").addClass("brightness-modal");
+            break;
+        case 4:
+            $("#content").addClass("lantern");
+            $("#modalPictures").addClass("lantern");
             break;
         default:
-            $('#content').addClass("no-control");
-            $('#modalPictures').addClass("no-control");
+            $("#content").addClass("no-control");
+            $("#modalPictures").addClass("no-control");
         }
         privacyControl = control;
     }
-
 }
+
+$(document).ready(function () {
+    var currentMousePos = {
+        x: -1,
+        y: -1
+    };
+    // $("<div> </div>").insertBefore(".hole").addClass("mask");
+    $(document).mousemove(function (event) {
+        currentMousePos.x = event.pageX;
+        currentMousePos.y = event.pageY;
+        $(".lantern").css("-webkit-mask-position-x", currentMousePos.x - 6000).css("-webkit-mask-position-y", currentMousePos.y - 6000);
+    }).mouseleave(function (e) {
+        $(".lantern").css("-webkit-mask-position-x", 1000).css("-webkit-mask-position-y", 1000);
+    });
+    document.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+        var touch = e.touches[0];
+        if (element !== document.elementFromPoint(touch.pageX, touch.pageY)) {
+            $(".lantern").css("-webkit-mask-position-x", 1000).css("-webkit-mask-position-y", 1000);
+        } {
+            $(".lantern").css("-webkit-mask-position-x", touch.pageX - 6000).css("-webkit-mask-position-y", touch.pageY - 6000);
+        }
+
+
+    }, false);
+});
 /*** CONTROL: End ***/
 
 /*** MODAL: Begin ***/
-$('li a').click(function (e) {
-    $('#modalPictures img').attr('src', $(this).attr('data-img-url'));
+$("li a").click(function (e) {
+    $("#modalPictures img").attr("src", $(this).attr("data-img-url"));
 });
 
 /*** MODAL: End ***/
