@@ -1,6 +1,8 @@
 var notificationModel = 0;
 var notificationLevel = 0;
 var privacyControl = 0;
+var privacyControlOn = 1;
+var notificationOn = 1;
 var intruderPositionX = 0;
 var intruderPositionY = 0;
 /*
@@ -20,7 +22,7 @@ $(document).ready(function () {
 
 /*** MORE LINK: Begin ***/
 $(document).ready(function () {
-    var showChar = 250;
+    var showChar = 500;
     var ellipsestext = "...";
     var moretext = "Read more <span class=\"caret\"> </span>";
     var lesstext = "Read more <span class=\"caret up\"> </span>";
@@ -130,11 +132,11 @@ $(document).ready(function () {
 //Changing notifications model
 function changeNotification(model) {
     if (model != Number.NaN && model >= 0 || model <= 4) {
-        $(".notification").stop(true, true).removeClass("model0").removeClass("model1").removeClass("model2").removeClass("model3").removeClass("model4");
+        $(".notification").stop(true, true).removeClass("model0").removeClass("model1").removeClass("model2").removeClass("model3").removeClass("model4").removeClass("model5");
         $(".notification").addClass("model" + model);
         notificationModel = model;
         if (model != 0) {
-            $(".notification").fadeTo(500, 100).delay(2000).fadeOut(200);
+            $(".notification").fadeTo(500, 100);
         }
     }
 }
@@ -143,11 +145,45 @@ function changeLevel(level) {
     if (level != Number.NaN && level >= 0 || level <= 3) {
         $(".notification").removeClass("level0").removeClass("level1").removeClass("level2").removeClass("level3");
         $(".notification").addClass("level" + level);
-        notificationLevel = level;
+        if (level == 2 || level == 3) {
+            //turn on the privacy control
+            $("#content").removeClass("turnoff");
+            $("#modalPictures").removeClass("turnoff");
+        } else {
+            //turn off the privacy control
+            $("#content").addClass("turnoff");
+            $("#modalPictures").addClass("turnoff");
+        }
+    }
+    notificationLevel = level;
+}
+}
+//Switching Control
+function switchControl(turn) {
+    if (turn != Number.NaN && turn >= 0 || turn <= 1) {
+        if (turn != 1) {
+            $("#content").removeClass("turnoff");
+            $("#modalPictures").removeClass("turnoff");
+        } else {
+            $("#content").addClass("turnoff");
+            $("#modalPictures").addClass("turnoff");
+        }
+        privacyControlOn = turn;
+    }
+}
+//Switching Notification
+function switchNotification(turn) {
+    if (turn != Number.NaN && turn >= 0 || turn <= 1) {
+        if (turn != 1) {
+            $(".notification").removeClass("turnoff");
+        } else {
+            $(".notification").addClass("turnoff");
+        }
+        notificationOn = turn;
     }
 }
 //Changing intruder position
-function changeIntruderPosition(x, y) {
+function changeIntruderPosition(x, y, angle) {
     if (x != Number.NaN && y != Number.NaN) {
         $(".notification.model4 .point-intruder").css("top", x + "%");
         $(".notification.model4 .point-intruder").css("left", y + "%");
@@ -192,35 +228,157 @@ function changeControl(control) {
     }
 }
 
+(function ($) {
+    $.fn.touchToScroll = function () {
+
+        var touchToScrollHandlers = {
+            touchStart: function (event) {
+                var e = $(this);
+                var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
+                var data = {
+                    element: e,
+                    x: touch.pageX,
+                    y: touch.pageY,
+                    scrollX: e.scrollLeft(),
+                    scrollY: e.scrollTop()
+                };
+                $(document).bind("touchend", data, touchToScrollHandlers.touchEnd);
+                $(document).bind("touchmove", data, touchToScrollHandlers.touchMove);
+            },
+            touchMove: function (event) {
+                event.preventDefault();
+                var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
+                var delta = {
+                    x: (touch.pageX - event.data.x),
+                    y: (touch.pageY - event.data.y)
+                };
+                event.data.element.scrollLeft(event.data.scrollX - delta.x);
+                event.data.element.scrollTop(event.data.scrollY - delta.y);
+            },
+            touchEnd: function (event) {
+                $(document).unbind("touchmove", touchToScrollHandlers.touchMove);
+                $(document).unbind("touchend", touchToScrollHandlers.touchEnd);
+            }
+        }
+
+        this.bind("touchstart", touchToScrollHandlers.touchStart);
+        return this;
+    };
+})(jQuery);
+
 $(document).ready(function () {
     var currentMousePos = {
         x: -1,
         y: -1
     };
-    // $("<div> </div>").insertBefore(".hole").addClass("mask");
+    //$('#main').touchToScroll();
+    $('.content').touchToScroll();
+    $(".notification").removeClass("model0").removeClass("model1").removeClass("model2").removeClass("model3").removeClass("model4").removeClass("model5").addClass("model0").removeClass("level0").removeClass("level1").removeClass("level2").removeClass("level3").addClass("level3");
     $(document).mousemove(function (event) {
         currentMousePos.x = event.pageX;
         currentMousePos.y = event.pageY;
-        $(".lantern").css("-webkit-mask-position-x", currentMousePos.x - 6000).css("-webkit-mask-position-y", currentMousePos.y - 6000);
+        $(".lantern").css("-webkit-mask-position-x", currentMousePos.x - 3435).css("-webkit-mask-position-y", currentMousePos.y - 2550);
     }).mouseleave(function (e) {
-        $(".lantern").css("-webkit-mask-position-x", 1000).css("-webkit-mask-position-y", 1000);
+        $(".lantern").css("-webkit-mask-position-x", 0).css("-webkit-mask-position-y", 0);
     });
-    document.addEventListener('touchmove', function (e) {
-        e.preventDefault();
-        var touch = e.touches[0];
-        if (element !== document.elementFromPoint(touch.pageX, touch.pageY)) {
-            $(".lantern").css("-webkit-mask-position-x", 1000).css("-webkit-mask-position-y", 1000);
-        } {
-            $(".lantern").css("-webkit-mask-position-x", touch.pageX - 6000).css("-webkit-mask-position-y", touch.pageY - 6000);
+
+});
+
+window.addEventListener('load', function (e) {
+
+    var startTouchX = 0;
+    var endTouchX = 0;
+    var touch_x;
+    var touch_y;
+    var scrollStartPos = 0;
+
+    $(document).on('MSPointerMove touchmove mousemove MSPointerDown touchstart mousedown MSPointerUp touchend mouseup scroll draginit scrollstart wheel mousewheel', function (e) {
+        if (("MSPointerEvent" in window) || !(e.type.search('touch') > -1)) {
+
+            if (e.pageX) {
+                touch_x = e.pageX;
+                touch_y = e.pageY;
+            } else {
+                touch_x = e.originalEvent.pageX;
+                touch_y = e.originalEvent.pageY;
+            }
+
+        } else {
+            if (e.originalEvent.touches[0]) {
+                touch_x = e.originalEvent.touches[0].pageX;
+                touch_y = e.originalEvent.touches[0].pageY;
+            }
+        }
+        $(".patient-name").text(e.type + touch_x);
+    });
+    document.addEventListener('touchstart', function (e) {
+        if ($("html").hasClass("menu-active")) {
+            startTouchX = touch_x;
+        }
+        if ($("#content").hasClass("lantern")) {
+            $(".lantern").css("-webkit-mask-position-x", touch_x - 3435).css("-webkit-mask-position-y", touch_y - 2550);
         }
 
-
     }, false);
-});
+
+    document.addEventListener('touchmove', function (e) {
+        //e.preventDefault();
+
+        if ($("html").hasClass("menu-active")) {
+            endTouchX = touch_x;
+            if (endTouchX + 10 < startTouchX) {
+                $("html").removeClass("menu-active");
+                startTouchX = 0;
+                endTouchX = 0;
+            }
+        }
+
+        if ($("#content").hasClass("lantern")) {
+            //e.preventDefault();
+            $(".lantern").css("-webkit-mask-position-x", touch_x - 3435).css("-webkit-mask-position-y", touch_y - 2550);
+        }
+    }, false);
+
+    document.addEventListener('touchend', function (e) {
+        if ($("html").hasClass("menu-active")) {
+            endTouchX = touch_x;
+            if (endTouchX + 10 < startTouchX) {
+                $("html").removeClass("menu-active");
+                startTouchX = 0;
+                endTouchX = 0;
+            }
+        }
+        if ($("#content").hasClass("lantern")) {
+            $(".lantern").css("-webkit-mask-position-x", touch_x - 3435).css("-webkit-mask-position-y", touch_y - 2550);
+        }
+    }, false);
+
+}, false);
+
+
 /*** CONTROL: End ***/
 
+/*** SWITCHERS: Begin ***/
+$(".turnNotification").click(function (e) {
+    if ($(".turnNotification").prop('checked')) {
+        switchNotification(0);
+    } else {
+        switchNotification(1);
+    }
+});
+
+
+$(".turnPrivacy").click(function (e) {
+    if ($(".turnPrivacy").prop('checked')) {
+        switchControl(0);
+    } else {
+        switchControl(1);
+    }
+});
+/*** SWITCHERS: End ***/
+
 /*** MODAL: Begin ***/
-$("li a").click(function (e) {
+$(".linkmodal").click(function (e) {
     $("#modalPictures img").attr("src", $(this).attr("data-img-url"));
 });
 

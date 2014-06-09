@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>Resident Profile</title>
 
     <!-- Bootstrap -->
@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <div class="notification model2 level3">
+    <div class="notification model3 level3">
         <div class="close-notification tooltips" data-toggle="tooltip" data-placement="left" title="Hide notification">X</div>
         <div class="point-intruder"></div>
         <div class="notification-radar"></div>
@@ -28,7 +28,7 @@
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <center class="modal-image">
-                    <img src="#" class="img-responsive patient-img" />
+                    <img class="img-responsive patient-img" />
                 </center>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -39,7 +39,17 @@
     <div id="content">
         <header>
             <span class="menu-anchor"></span>
-            <h1><a href="#">Resident Profile</a></h1>
+            <h1><a href="#" onclick="javascript:return false;">Resident Profile</a></h1>
+            <div class="control-setup">
+                <div>
+                    <input type="checkbox" checked id="switch1" class="switch turnPrivacy" />
+                    <label for="switch1" class="turnPrivacy">Privacy control</label>
+                </div>
+                <div>
+                    <input type="checkbox" checked id="switch2" class="switch turnNotification" />
+                    <label for="switch2" class="turnNotification">Notification</label>
+                </div>
+            </div>
         </header>
 
         <menu>
@@ -62,6 +72,8 @@
                 </li>
                 <li><a onclick="javascript:changeNotification(1);">Simple notification</a>
                 </li>
+                <li><a onclick="javascript:changeNotification(5);">Opacity notification</a>
+                </li>
                 <li><a onclick="javascript:changeNotification(2);">Colorful notification</a>
                 </li>
                 <li><a onclick="javascript:changeNotification(3);">Level notification</a>
@@ -73,51 +85,50 @@
 
         <section id="main" class="main">
             <div class="row patient-summary">
-                <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="col-xs-3 col-sm-4 col-md-3 center">
+                    <a class="linkmodal" href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
+                        <img class="img-circle img-responsive patient-img patient-topimg center" width="200" height="200" alt="Bob Manilyn" src="images/patient.png">
+                    </a>
+                </div>
+                <div class="col-xs-9 col-sm-8 col-md-9">
                     <h1 class="patient-name">Bob Manilyn</h1>
                     <h1 class="patient-name-acronym">B. M.</h1>
-                    <h2>Profile</h2>
-                    <p class="more">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a elit porttitor, hendrerit sapien vel, feugiat turpis. Donec fringilla tellus nec odio porta, non rutrum nisl congue. Sed nisl lacus, sodales nec lobortis quis, faucibus eget velit. Nam et molestie nibh, at pulvinar nunc. Integer molestie viverra eros non rutrum. Phasellus quis lectus purus.
+                    <p class="more">The patient is a 48-year old single father who has recently been diagnosed with a cranial tumour in the right frontal lobe. The diagnosis explains her symptoms of persistent and worsening headache over the last four weeks, which have led her to resign from work and rely more on her mother for support and care. He has also experienced symptoms of increased intracranial pressure, such as nausea, vomiting, and mild photophobia. Hence, it is likely that the tumour is a space-occupying lesion, which is exerting the oedema effect and causing the symptoms that he is experiencing. Taking his age and sex into consideration, the lesion is most likely to be a primary lesion, single and benign in nature. In addition, given that his father died 15 years ago of stroke related causes, his mother and his sister both have cardiovascular illness, and he has HERNS syndrome, there is a high probability that the tumour has a vascular cause.
+                        <br />
+                        <br />He has become depressed and withdrawn since finding out that she has a brain tumour. In particular, he is very anxious about the possibility that the biopsy results will show that the tumour is cancerous. Although symptoms of depression and anxiety are not uncommon in patients threatened by a diagnosis of cancer, he has a history of feeling melancholy and, significantly, developed postnatal depression following the birth of her son five years ago. His response to his current illness needs to be understood in this context, as it will help to assess how well she will cope with the forthcoming diagnosis and future management of her illness.
+                        <br />
+                        <br />Upon the mental state examination, he exhibited sullen appearance and limited facial expression. Although articulate, he spoke slowly and softly throughout the interview. Clearly, he has a depressed affect. His history of childhood depression in conjunction with his recent history of poor appetite, sleep disturbance, energy loss, reduced concentration and feelings of guilt indicate that he is prone to developing a major depressive disorder in response to her current medical condition.
+                        <br />
+                        <br />From the information gathered in the history and examination, the following differential diagnosis can be posited:
+                        <br />1) Major depressive disorder his unhappy childhood and psychiatric history of depression support this diagnosis. In addition, he meets at least five of the DMS-IV criteria on mental state examination.
+                        <br />2) Biological disorder The tumour in his right frontal fossa might affect functions of the frontal lobe, which control thought and personality. Consequently, his personality traits may be enhanced by such a biological disturbance, making his more prone to stress and depression.
+                        <br />3) Anxiety his sudden confinement in hospital, diminished ability to perform daily activities, and concerns about her family and health, predispose her to experiencing anxiety, a potential trigger of depression.
                     </p>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-3 center">
-                    <center>
-                        <img class="img-circle img-responsive patient-img" width="200" height="200" alt="Bob Manilyn" src="images/patient.png">
-                    </center>
-                </div>
+
             </div>
             <div class="row patient-evolution">
                 <div class="col-xs-12 col-md-6">
                     <h2>Treatment</h2>
                     <ul class="patient-img-list list-inline">
                         <li>
-                            <a href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
-                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient.png">
+                            <a class="linkmodal" href="#modalPictures" data-toggle="modal" data-img-url="images/patient-scar1.png">
+                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient-scar1.png">
                             </a>
                         </li>
                         <li>
-                            <a href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
-                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient.png">
+                            <a class="linkmodal" href="#modalPictures" data-toggle="modal" data-img-url="images/patient-scar2.png">
+                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient-scar2.png">
                             </a>
                         </li>
                         <li>
-                            <a href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
-                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient.png">
+                            <a class="linkmodal" href="#modalPictures" data-toggle="modal" data-img-url="images/patient-scar3.png">
+                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient-scar3.png">
                             </a>
                         </li>
                         <li>
-                            <a href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
-                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient.png">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
-                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient.png">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#modalPictures" data-toggle="modal" data-img-url="images/patient-fullpicture.png">
-                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient.png">
+                            <a class="linkmodal" href="#modalPictures" data-toggle="modal" data-img-url="images/patient-scar4.png">
+                                <img class="patient-img-thumbnail img-thumbnail" src="images/patient-scar4.png">
                             </a>
                         </li>
                     </ul>
@@ -138,12 +149,14 @@
         </footer>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/dragdrop.pep.js"></script>
     <script src="js/highcharts.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/socket.js"></script>
 </body>
 
 </html>

@@ -4,6 +4,14 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
+    position: fixed;
+}
+html,
+body,
+.main,
+#content {
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
 }
 body {
     font: 100% arial, verdana, tahoma, sans-serif;
@@ -11,16 +19,21 @@ body {
     background-color: #FFF;
 }
 header {
-    margin: 0 20px;
-    padding: 15px 5px 5px 5px;
+    padding: 5px 15px 5px 10px;
     overflow: hidden;
     border-bottom: solid 1px #666;
+    position: fixed;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.97);
+    width: 100%;
+    -webkit-box-shadow: 0 1px 4px -2px #333;
+    -moz-box-shadow: 0 1px 4px -2px #333;
+    box-shadow: 0 1px 4px -2px #333;
 }
 header h1 {
     display: inline-block;
     vertical-align: middle;
     text-align: Left;
-    width: 80%;
     font-size: 2em;
     margin-top: 8px;
     margin-left: 15px;
@@ -36,7 +49,10 @@ header input {
     border: none;
 }
 .main {
-    padding: 0px 30px;
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-bottom: 0px;
+    padding-left: 30px;
 }
 .main p {
     font-size: 1.5em;
@@ -44,7 +60,7 @@ header input {
     margin-bottom: 20px;
 }
 #content {
-    min-height: 100%
+    min-height: 100%;
 }
 footer {
     padding: 20px;
@@ -91,6 +107,7 @@ menu {
     padding-left: 0;
     margin-top: 0;
     background: #00b4f0;
+    overflow: auto;
     box-shadow: inset -5px 0px 10px 0 rgba(0, 0, 0, .3)
 }
 menu ul {
@@ -155,6 +172,10 @@ header,
 
 /*** READ MORE: Begin ***/
 
+.morelink {
+    word-break: keep-all;
+    display: inline-block;
+}
 .morecontent span {
     display: none;
 }
@@ -169,6 +190,9 @@ header,
 
 .patient-img {
     background: #8cc63f url('../images/patient-bg.png') no-repeat center center;
+}
+.patient-topimg {
+    margin: 20px;
 }
 .patient-img-thumbnail {
     width: 133px;
@@ -230,18 +254,39 @@ header,
     -webkit-filter: grayscale(1);
 }
 .brightness {
-    -webkit-filter: brightness(0.5);
-    filter: brightness(0.5);
+    -webkit-filter: brightness(0.4);
+    filter: brightness(0.4);
     background-color: #fff;
 }
 .brightness-modal {
-    -webkit-filter: brightness(0.5);
-    filter: brightness(0.5);
+    -webkit-filter: brightness(0.4);
+    filter: brightness(0.4);
 }
 .lantern {
-    -webkit-mask: url(../images/mask1.png) repeat center center;
+    mask: url(../images/mask2.png) repeat 0 0;
+    -webkit-mask: url(../images/mask2.png) repeat 0 0;
+    /*mask: url(../images/mask1.png) repeat center center / 12000px 12000px;
+    -webkit-mask: url(../images/mask1.png) repeat center center / 12000px 12000px;*/
+    /* -webkit-mask: url(../images/mask1.png) repeat center center;
     -webkit-mask-size: 12000px 12000px;
-    -webkit-mask-position: 50% 50%;
+    -webkit-mask-position: 50% 50%;*/
+}
+#content.turnoff,
+#modalPictures.turnoff {
+    filter: none;
+    -webkit-filter: none;
+    -webkit-mask: none;
+}
+.selective-hiding.turnoff .img-thumbnail,
+.selective-hiding.turnoff .patient-img {
+    content: none;
+}
+.selective-hiding.turnoff #patient-chart:before {
+    background: none;
+    content: none;
+}
+.selective-hiding.turnoff #patient-chart .highcharts-container {
+    display: inline;
 }
 /*** PRIVACY CONTROLS: End ***/
 
@@ -280,6 +325,7 @@ header,
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
+    z-index: 2;
     box-shadow: rgba(0, 0, 0, 0.31) 0px 5px 9px;
 }
 .notification .close-notification:hover {
@@ -288,6 +334,7 @@ header,
 .notification.model0,
 .notification.model1.level1 {
     opacity: 0;
+    display: none;
 }
 .notification.model1.level2,
 .notification.model1.level3 {
@@ -318,7 +365,7 @@ header,
     display: block;
     border-radius: 150px;
     position: relative;
-    top: -155px;
+    top: -225px;
     left: 0;
     content: "";
     z-index: -10;
@@ -355,7 +402,7 @@ header,
 .notification.model4 .notification-radar {
     background: url('../images/notification4-radargrill.png') no-repeat center center;
     position: relative;
-    top: -5px;
+    top: -75px;
     left: 0;
     background-size: contain;
     width: 150px;
@@ -364,12 +411,102 @@ header,
     opacity: 0.9;
 }
 .notification.model4 .point-intruder {
-    background: #960202;
-    width: 5px;
-    height: 5px;
-    border-radius: 5px;
+    background: url('../images/notification4-people.png') no-repeat center center;
+    width: 75px;
+    height: 75px;
+    border-radius: 75px;
     position: relative;
-    top: 60%;
-    left: 50%;
+    top: 10px;
+    left: 5px;
+    z-index: 0;
+    opacity: 1;
+    -webkit-transform: rotate(240deg);
+}
+.notification.model5 {
+    background: url('../images/notification2-level4.png') no-repeat center center;
+}
+.notification.model5.level1 {
+    opacity: 0.1;
+}
+.notification.model5.level2 {
+    opacity: 0.5;
+}
+.notification.model5.level3 {
+    opacity: 1;
+}
+.notification.turnoff {
+    opacity: 0 !important;
+    display: none !important;
 }
 /*** NOTIFICATIONS: End ***/
+
+/*** SWITCHER: Begin ***/
+
+.control-setup {
+    float: right;
+    font-size: 1.4em;
+    margin-top: 5px;
+}
+.control-setup label {
+    font-weight: 100;
+    color: #8b8b8b;
+}
+.control-setup div {
+    float: right;
+    display: inline-block;
+    overflow: hidden;
+    margin-left: 20px;
+}
+input[type=checkbox] {
+    visibility: hidden;
+}
+input.switch:empty {
+    margin-left: -999px;
+    overflow: hidden;
+}
+input.switch:empty ~ label {
+    position: relative;
+    float: left;
+    line-height: 1.6em;
+    text-indent: 4.5em;
+    margin: 0.2em 0;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+input.switch:empty ~ label:before,
+input.switch:empty ~ label:after {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 5px;
+    content: ' ';
+    width: 3.6em;
+    background-color: #f5f5f5;
+    border-radius: 0.8em;
+    box-shadow: inset 0 0.2em 0 rgba(0, 0, 0, 0.3);
+    -webkit-transition: all 100ms ease-in;
+    transition: all 100ms ease-in;
+    border: #ccc 1px solid;
+}
+input.switch:empty ~ label:after {
+    width: 1.4em;
+    top: 0.1em;
+    bottom: 0.1em;
+    margin-left: 0.1em;
+    background-color: #fff;
+    border-radius: 0.8em;
+    width: 20px;
+    height: 20px;
+    box-shadow: inset 0 -0.1em 0 rgba(0, 0, 0, 0.2);
+}
+input.switch:checked ~ label:before {
+    background-color: #1ebe1e;
+}
+input.switch:checked ~ label:after {
+    margin-left: 2.1em;
+}
+/*** SWITCHER: End ***/
